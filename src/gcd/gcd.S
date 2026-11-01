@@ -27,10 +27,10 @@ gcd_u32_asm:
 .Lodd_a:
     andi    t1, a0, 1
     bnez    t1, .Lodd_b
-.Lshift_a:
+.Linitial_shift_a:
     srli    a0, a0, 1
     andi    t1, a0, 1
-    beqz    t1, .Lshift_a
+    beqz    t1, .Linitial_shift_a
 
 .Lodd_b:
     andi    t1, a1, 1
@@ -44,7 +44,12 @@ gcd_u32_asm:
     beq     a0, a1, .Ldone
     bltu    a0, a1, .Lb_larger
     sub     a0, a0, a1
-    j       .Lshift_a
+    # b is already odd here; do not test it again after reducing a.
+.Lreduce_a:
+    srli    a0, a0, 1
+    andi    t1, a0, 1
+    beqz    t1, .Lreduce_a
+    j       .Lcompare
 .Lb_larger:
     sub     a1, a1, a0
     j       .Lshift_b
