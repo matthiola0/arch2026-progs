@@ -13,17 +13,20 @@
     .type   bf16_from_f32_asm, @function
     .align  2
 bf16_from_f32_asm:
-    srli    t0, a0, 23
-    andi    t0, t0, 255
-    li      t1, 255
-    beq     t0, t1, .Lf32_top
-    srli    t0, a0, 16
-    andi    t0, t0, 1
-    li      t1, 0x7fff
-    add     a0, a0, t1
-    add     a0, a0, t0
-.Lf32_top:
+    lui     t0, 0x7f800
+    and     t1, a0, t0
+    slli    t2, a0, 16
     srli    a0, a0, 16
+    beq     t1, t0, .Lf32_done
+    # Below the midpoint, the retained half already is the rounded result.
+    bgez    t2, .Lf32_done
+    # Above it, increment; exactly at it, increment only an odd retained half.
+    slli    t2, t2, 1
+    snez    t2, t2
+    andi    t1, a0, 1
+    or      t2, t2, t1
+    add     a0, a0, t2
+.Lf32_done:
     ret
     .size   bf16_from_f32_asm, .-bf16_from_f32_asm
 
@@ -156,7 +159,7 @@ bf16_sqrt_asm:
     sub     t1, t1, t2
     li      t3, 4096
     # Restoring integer square root. The leading root bit is always one.
-    .rept 7
+.Lsqrt_bit:
     add     t4, t2, t3
     srli    t2, t2, 1
     bltu    t1, t4, 1f
@@ -164,7 +167,7 @@ bf16_sqrt_asm:
     add     t2, t2, t3
 1:
     srli    t3, t3, 2
-    .endr
+    bnez    t3, .Lsqrt_bit
     addi    t0, t0, 127
     srli    t0, t0, 1
     slli    t0, t0, 7
