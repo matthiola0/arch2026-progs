@@ -1,0 +1,26 @@
+{
+  "sqrt_positive_normals_checked": 32512,
+  "sqrt_worst": {
+    "relative_error": 0.0038835098164954423,
+    "input": "0x81",
+    "output": "0x2000",
+    "reference": 1.0884290975704787e-19
+  },
+  "mul_normal_significand_pairs_checked": 16384,
+  "mul_worst": {
+    "relative_error": 0.007691841802434741,
+    "a": "0x3f9e",
+    "b": "0x3fd1",
+    "output": "0x4000"
+  },
+  "mul_underflow_example": {
+    "a": "0x0080",
+    "b": "0x3f00",
+    "output": "0x0",
+    "relative_error": 1.0
+  },
+  "q_mul_pairs_checked": 20121,
+  "q_mul_pairs_without_wrap": 10149,
+  "q_mul_max_absolute_error_without_wrap": 4.76837158203125e-07,
+  "q_mul_contract_mismatches": 0
+}

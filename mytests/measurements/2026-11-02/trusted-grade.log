@@ -1,0 +1,205 @@
+== hash chain of the submission's history
+Commit history: 10 commit(s) continue the hash chain.
+== harness from /mnt/c/Users/boy/Desktop/Arch_HW/HW2/arch2026-progs/.trusted
+== sources from /mnt/c/Users/boy/Desktop/Arch_HW/HW2/arch2026-progs
+== host tests under sanitizers
+make: Entering directory '/tmp/grade.9w4oVU'
+  HOSTCC	build/host/rubik
+  HOSTCC	build/host/bf16
+  HOSTCC	build/host/gcd
+  HOSTCC	build/host/fixed
+  SAN	rubik
+  SAN	bf16
+  SAN	gcd
+  SAN	fixed
+make: Leaving directory '/tmp/grade.9w4oVU'
+== build and grade
+make: Entering directory '/tmp/grade.9w4oVU'
+  CC	build/rubik/O1/c-rubik.o
+  AS	build/rubik/s-rubik.o
+  CC	build/rubik/O1/main.o
+  CC	build/rubik/O1/test.o
+  AS	build/common/start.o
+  AS	build/common/perf.o
+  CC	build/common/rt.o
+  CC	build/common/print.o
+  CC	build/common/utest.o
+  CC	build/common/trt.o
+  CC	build/common/tutest.o
+  CC	build/rubik/O2/c-rubik.o
+  CC	build/rubik/O2/main.o
+  CC	build/rubik/O2/test.o
+  CC	build/rubik/O3/c-rubik.o
+  CC	build/rubik/O3/main.o
+  CC	build/rubik/O3/test.o
+  CC	build/rubik/Os/c-rubik.o
+  CC	build/rubik/Os/main.o
+  CC	build/rubik/Os/test.o
+  CC	build/bf16/O1/c-bf16.o
+  AS	build/bf16/s-bf16.o
+  CC	build/bf16/O1/main.o
+  CC	build/bf16/O1/test.o
+  CC	build/bf16/O2/c-bf16.o
+  CC	build/bf16/O2/main.o
+  CC	build/bf16/O2/test.o
+  CC	build/bf16/O3/c-bf16.o
+  CC	build/bf16/O3/main.o
+  CC	build/bf16/O3/test.o
+  CC	build/bf16/Os/c-bf16.o
+  CC	build/bf16/Os/main.o
+  CC	build/bf16/Os/test.o
+  CC	build/gcd/O1/c-gcd.o
+  AS	build/gcd/s-gcd.o
+  CC	build/gcd/O1/main.o
+  CC	build/gcd/O1/test.o
+  CC	build/gcd/O2/c-gcd.o
+  CC	build/gcd/O2/main.o
+  CC	build/gcd/O2/test.o
+  CC	build/gcd/O3/c-gcd.o
+  CC	build/gcd/O3/main.o
+  CC	build/gcd/O3/test.o
+  CC	build/gcd/Os/c-gcd.o
+  CC	build/gcd/Os/main.o
+  CC	build/gcd/Os/test.o
+  CC	build/fixed/O1/c-fixed.o
+  AS	build/fixed/s-fixed.o
+  CC	build/fixed/O1/main.o
+  CC	build/fixed/O1/test.o
+  CC	build/fixed/O2/c-fixed.o
+  CC	build/fixed/O2/main.o
+  CC	build/fixed/O2/test.o
+  CC	build/fixed/O3/c-fixed.o
+  CC	build/fixed/O3/main.o
+  CC	build/fixed/O3/test.o
+  CC	build/fixed/Os/c-fixed.o
+  CC	build/fixed/Os/main.o
+  CC	build/fixed/Os/test.o
+  CC	build/neg/main.o
+  LD	build/rubik/O1/impl.o
+git init --quiet third_party/rv32emu
+  LD	build/rubik/impl_asm.o
+  LD	build/rubik/O2/impl.o
+  LD	build/rubik/Os/impl.o
+  LD	build/rubik/O3/impl.o
+  LD	build/bf16/O1/impl.o
+  LD	build/bf16/impl_asm.o
+  LD	build/bf16/O2/impl.o
+  LD	build/bf16/O3/impl.o
+  LD	build/bf16/Os/impl.o
+  LD	build/gcd/O1/impl.o
+  LD	build/gcd/impl_asm.o
+  LD	build/gcd/O2/impl.o
+  LD	build/gcd/O3/impl.o
+  LD	build/gcd/Os/impl.o
+  LD	build/fixed/O1/impl.o
+git -C third_party/rv32emu config remote.origin.url https://github.com/sysprog21/rv32emu
+  LD	build/fixed/impl_asm.o
+  LD	build/fixed/O2/impl.o
+  LD	build/fixed/O3/impl.o
+git -C third_party/rv32emu fetch --quiet --depth 1 origin HEAD
+  LD	build/fixed/Os/impl.o
+  LD	build/neg/neg.elf
+  LD	build/rubik/O1/rubik.elf
+  LD	build/rubik/O2/rubik.elf
+  LD	build/rubik/O3/rubik.elf
+  LD	build/rubik/Os/rubik.elf
+  LD	build/bf16/O1/bf16.elf
+  LD	build/bf16/O2/bf16.elf
+  LD	build/bf16/O3/bf16.elf
+  LD	build/bf16/Os/bf16.elf
+  LD	build/gcd/O1/gcd.elf
+  LD	build/gcd/O2/gcd.elf
+  LD	build/gcd/O3/gcd.elf
+  LD	build/gcd/Os/gcd.elf
+  LD	build/fixed/O1/fixed.elf
+  LD	build/fixed/O2/fixed.elf
+  LD	build/fixed/O3/fixed.elf
+  LD	build/fixed/Os/fixed.elf
+listings: build/<prog>/<opt>/<prog>.dis and build/<prog>/asm.dis
+git -C third_party/rv32emu checkout --quiet FETCH_HEAD
+rv32emu 158b57e 2026-10-30 Merge pull request #835 from sysprog21/apis
+make -C third_party/rv32emu CROSS_COMPILE= distclean
+make[1]: Entering directory '/mnt/c/Users/boy/Desktop/Arch_HW/HW2/arch2026-progs/.trusted/third_party/rv32emu'
+Downloading Kconfig tools...
+Kconfig tools installed to tools/kconfig
+Loaded configuration 'configs/defconfig'
+Configuration saved to '.config'
+Generated .config from default configuration
+Cleaning... [32m[OK][0m
+Removing config files... [32m[OK][0m
+Deleting all generated files... [32m[OK][0m
+make[1]: Leaving directory '/mnt/c/Users/boy/Desktop/Arch_HW/HW2/arch2026-progs/.trusted/third_party/rv32emu'
+make -C third_party/rv32emu CROSS_COMPILE= system_interpreter_defconfig
+make[1]: Entering directory '/mnt/c/Users/boy/Desktop/Arch_HW/HW2/arch2026-progs/.trusted/third_party/rv32emu'
+Loaded configuration 'configs/defconfig'
+Configuration saved to '.config'
+Generated .config from default configuration
+Applying configs/system_interpreter_defconfig...
+Loaded configuration 'configs/system_interpreter_defconfig'
+Configuration saved to '.config'
+Configuration applied.
+make[1]: Leaving directory '/mnt/c/Users/boy/Desktop/Arch_HW/HW2/arch2026-progs/.trusted/third_party/rv32emu'
+make -C third_party/rv32emu CROSS_COMPILE= ENABLE_ELF_LOADER=1 ENABLE_SDL=0 ENABLE_SDL_MIXER=0 \
+    ENABLE_EXT_M=0 ENABLE_EXT_A=0 ENABLE_EXT_F=0 ENABLE_EXT_C=0
+make[1]: Entering directory '/mnt/c/Users/boy/Desktop/Arch_HW/HW2/arch2026-progs/.trusted/third_party/rv32emu'
+  GEN	src/decode.c
+  CC	build/map.o
+  CC	build/utils.o
+  CC	build/io.o
+  CC	build/syscall.o
+  CC	build/trace_match.o
+  CC	build/emulate.o
+  CC	build/riscv.o
+  CC	build/log.o
+  CC	build/elf.o
+  CC	build/cache.o
+  CC	build/mpool.o
+  CC	build/coro.o
+  CC	build/system.o
+  CC	build/dtc/libfdt/fdt.o
+  CC	build/dtc/libfdt/fdt_ro.o
+  CC	build/dtc/libfdt/fdt_rw.o
+  CC	build/dtc/libfdt/fdt_wip.o
+  CC	build/main.o
+  CC	build/devices/plic.o
+  CC	build/devices/rtc.o
+  CC	build/devices/uart.o
+  CC	build/devices/virtio-blk.o
+  CC	build/devices/virtio-rng.o
+  CC	build/decode.o
+  LD	build/rv32emu
+[32mBuild complete: build/rv32emu[0m
+make[1]: Leaving directory '/mnt/c/Users/boy/Desktop/Arch_HW/HW2/arch2026-progs/.trusted/third_party/rv32emu'
+scripts/driver.py --emu third_party/rv32emu/build/rv32emu --build build --prefix riscv-none-elf- --timeout 120 --out /mnt/c/Users/boy/Desktop/Arch_HW/HW2/arch2026-progs/results/trusted
+--- wrote /mnt/c/Users/boy/Desktop/Arch_HW/HW2/arch2026-progs/results/trusted/cycles.csv, footprint.csv, cycles.md, cycles-per-call.png, speedup.png, footprint.png
+--- toolchain    PASS    3.8/5
+--- emulator     PASS    7.5/10
+--- rubik        FAIL    0.0/15
+    x -O1: 32 test(s) failed: rubik_c_depth0, rubik_asm_depth0, rubik_c_depth1, rubik_asm_depth1, rubik_c_depth2, rubik_asm_depth2 ...
+    x -O1: main returned 1, expected 0
+    x -O2: 32 test(s) failed: rubik_c_depth0, rubik_asm_depth0, rubik_c_depth1, rubik_asm_depth1, rubik_c_depth2, rubik_asm_depth2 ...
+    x -O2: main returned 1, expected 0
+    x -O3: 32 test(s) failed: rubik_c_depth0, rubik_asm_depth0, rubik_c_depth1, rubik_asm_depth1, rubik_c_depth2, rubik_asm_depth2 ...
+    x -O3: main returned 1, expected 0
+    x -Os: 32 test(s) failed: rubik_c_depth0, rubik_asm_depth0, rubik_c_depth1, rubik_asm_depth1, rubik_c_depth2, rubik_asm_depth2 ...
+    x -Os: main returned 1, expected 0
+--- bf16         PASS   15.0/15
+--- gcd          PASS   15.0/15
+--- fixed        PASS   15.0/15
+--- disassembly  PASS    3.8/5
+--- cycles       PASS    7.5/10
+    - bf16.from_f32: assembly beats the best C build (1.30x)
+    - bf16.mul: assembly beats the best C build (1.48x)
+    - bf16.sqrt: assembly beats the best C build (7.63x)
+    - fixed.op1: assembly beats the best C build (1.12x)
+    - fixed.op2: assembly matches the best C build (1.00x)
+    - fixed.op3: assembly matches the best C build (1.00x)
+    - fixed.q_mul: assembly beats the best C build (1.42x)
+    - gcd.gcd: assembly beats the best C build (1.15x)
+    - rubik.solve: assembly beats the best C build (1.04x)
+--- footprint    PASS    3.8/5
+--- hygiene      PASS    3.8/5
+--- 3 of 4 programs pass; the other items count 75%
+--- TOTAL 75.0/100
+make: *** [Makefile:213: grade] Error 1
+make: Leaving directory '/tmp/grade.9w4oVU'
