@@ -1,0 +1,9 @@
+{
+  "mode": "pattern",
+  "permutation_maximum": 7,
+  "subset": "235",
+  "pattern_states": 153090,
+  "pattern_maximum": 9,
+  "pattern_packed_bytes": 76545,
+  "table_bytes_including_alignment": 124157
+}

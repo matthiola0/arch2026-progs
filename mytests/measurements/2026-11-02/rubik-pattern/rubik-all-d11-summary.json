@@ -1,0 +1,16 @@
+{
+  "states_checked": 2644,
+  "paths_checked": 5288,
+  "budget_failures": 0,
+  "path_failures": 0,
+  "c": {
+    "maximum_instructions": 3854613,
+    "worst_state": "47265312313211",
+    "mean_instructions": 671141.0476550681
+  },
+  "asm": {
+    "maximum_instructions": 3243708,
+    "worst_state": "47265312313211",
+    "mean_instructions": 568214.089258699
+  }
+}

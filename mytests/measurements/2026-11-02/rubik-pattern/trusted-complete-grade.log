@@ -1,0 +1,137 @@
+== harness from /mnt/c/Users/boy/Desktop/Arch_HW/HW2/arch2026-progs/.trusted
+== sources from /mnt/c/Users/boy/Desktop/Arch_HW/HW2/arch2026-progs
+== host tests under sanitizers
+make: Entering directory '/tmp/grade.HUTjLk'
+  HOSTCC	build/host/rubik
+  HOSTCC	build/host/bf16
+  HOSTCC	build/host/gcd
+  HOSTCC	build/host/fixed
+  SAN	rubik
+  SAN	bf16
+  SAN	gcd
+  SAN	fixed
+make: Leaving directory '/tmp/grade.HUTjLk'
+== build and grade
+make: Entering directory '/tmp/grade.HUTjLk'
+  CC	build/rubik/O1/c-rubik.o
+  AS	build/rubik/s-rubik.o
+  CC	build/rubik/O1/main.o
+  CC	build/rubik/O1/test.o
+  AS	build/common/start.o
+  AS	build/common/perf.o
+  CC	build/common/rt.o
+  CC	build/common/print.o
+  CC	build/common/utest.o
+  CC	build/common/trt.o
+  CC	build/common/tutest.o
+  CC	build/rubik/O2/c-rubik.o
+  CC	build/rubik/O2/main.o
+  CC	build/rubik/O2/test.o
+  CC	build/rubik/O3/c-rubik.o
+  CC	build/rubik/O3/main.o
+  CC	build/rubik/O3/test.o
+  CC	build/rubik/Os/c-rubik.o
+  CC	build/rubik/Os/main.o
+  CC	build/rubik/Os/test.o
+  CC	build/bf16/O1/c-bf16.o
+  AS	build/bf16/s-bf16.o
+  CC	build/bf16/O1/main.o
+  CC	build/bf16/O1/test.o
+  CC	build/bf16/O2/c-bf16.o
+  CC	build/bf16/O2/main.o
+  CC	build/bf16/O2/test.o
+  CC	build/bf16/O3/c-bf16.o
+  CC	build/bf16/O3/main.o
+  CC	build/bf16/O3/test.o
+  CC	build/bf16/Os/c-bf16.o
+  CC	build/bf16/Os/main.o
+  CC	build/bf16/Os/test.o
+  CC	build/gcd/O1/c-gcd.o
+  AS	build/gcd/s-gcd.o
+  CC	build/gcd/O1/main.o
+  CC	build/gcd/O1/test.o
+  CC	build/gcd/O2/c-gcd.o
+  CC	build/gcd/O2/main.o
+  CC	build/gcd/O2/test.o
+  CC	build/gcd/O3/c-gcd.o
+  CC	build/gcd/O3/main.o
+  CC	build/gcd/O3/test.o
+  CC	build/gcd/Os/c-gcd.o
+  CC	build/gcd/Os/main.o
+  CC	build/gcd/Os/test.o
+  CC	build/fixed/O1/c-fixed.o
+  AS	build/fixed/s-fixed.o
+  CC	build/fixed/O1/main.o
+  CC	build/fixed/O1/test.o
+  CC	build/fixed/O2/c-fixed.o
+  CC	build/fixed/O2/main.o
+  CC	build/fixed/O2/test.o
+  CC	build/fixed/O3/c-fixed.o
+  CC	build/fixed/O3/main.o
+  CC	build/fixed/O3/test.o
+  CC	build/fixed/Os/c-fixed.o
+  CC	build/fixed/Os/main.o
+  CC	build/fixed/Os/test.o
+  CC	build/neg/main.o
+  LD	build/rubik/O1/impl.o
+  LD	build/rubik/impl_asm.o
+  LD	build/rubik/O2/impl.o
+  LD	build/rubik/O3/impl.o
+  LD	build/rubik/Os/impl.o
+  LD	build/bf16/O1/impl.o
+  LD	build/bf16/impl_asm.o
+  LD	build/bf16/O2/impl.o
+  LD	build/bf16/O3/impl.o
+  LD	build/bf16/Os/impl.o
+  LD	build/gcd/O1/impl.o
+  LD	build/gcd/impl_asm.o
+  LD	build/gcd/O2/impl.o
+  LD	build/gcd/O3/impl.o
+  LD	build/gcd/Os/impl.o
+  LD	build/fixed/O1/impl.o
+  LD	build/fixed/impl_asm.o
+  LD	build/fixed/O2/impl.o
+  LD	build/fixed/O3/impl.o
+  LD	build/fixed/Os/impl.o
+  LD	build/neg/neg.elf
+  LD	build/rubik/O1/rubik.elf
+  LD	build/rubik/O2/rubik.elf
+  LD	build/rubik/O3/rubik.elf
+  LD	build/rubik/Os/rubik.elf
+  LD	build/bf16/O1/bf16.elf
+  LD	build/bf16/O2/bf16.elf
+  LD	build/bf16/O3/bf16.elf
+  LD	build/bf16/Os/bf16.elf
+  LD	build/gcd/O1/gcd.elf
+  LD	build/gcd/O2/gcd.elf
+  LD	build/gcd/O3/gcd.elf
+  LD	build/gcd/Os/gcd.elf
+  LD	build/fixed/O1/fixed.elf
+  LD	build/fixed/O2/fixed.elf
+  LD	build/fixed/O3/fixed.elf
+  LD	build/fixed/Os/fixed.elf
+listings: build/<prog>/<opt>/<prog>.dis and build/<prog>/asm.dis
+scripts/driver.py --emu third_party/rv32emu/build/rv32emu --build build --prefix riscv-none-elf- --timeout 120 --out /mnt/c/Users/boy/Desktop/Arch_HW/HW2/arch2026-progs/results/trusted-complete
+--- wrote /mnt/c/Users/boy/Desktop/Arch_HW/HW2/arch2026-progs/results/trusted-complete/cycles.csv, footprint.csv, cycles.md, cycles-per-call.png, speedup.png, footprint.png
+--- toolchain    PASS    5.0/5
+--- emulator     PASS   10.0/10
+--- rubik        PASS   15.0/15
+--- bf16         PASS   15.0/15
+--- gcd          PASS   15.0/15
+--- fixed        PASS   15.0/15
+--- disassembly  PASS    5.0/5
+--- cycles       PASS   10.0/10
+    - bf16.from_f32: assembly beats the best C build (1.30x)
+    - bf16.mul: assembly beats the best C build (1.48x)
+    - bf16.sqrt: assembly beats the best C build (7.63x)
+    - fixed.op1: assembly beats the best C build (1.12x)
+    - fixed.op2: assembly matches the best C build (1.00x)
+    - fixed.op3: assembly matches the best C build (1.00x)
+    - fixed.q_mul: assembly beats the best C build (1.42x)
+    - gcd.gcd: assembly beats the best C build (1.15x)
+    - rubik.solve: assembly beats the best C build (1.10x)
+--- footprint    PASS    5.0/5
+--- hygiene      PASS    5.0/5
+--- 4 of 4 programs pass; the other items count 100%
+--- TOTAL 100.0/100
+make: Leaving directory '/tmp/grade.HUTjLk'

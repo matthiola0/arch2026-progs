@@ -1,0 +1,11 @@
+--- wrote results/rubik-basic/cycles.csv, footprint.csv, cycles.md, cycles-per-call.png, speedup.png, footprint.png
+--- toolchain    PASS    5.0/5
+--- emulator     PASS   10.0/10
+--- rubik        PASS   15.0/15
+--- disassembly  PASS    5.0/5
+--- cycles       PASS   10.0/10
+    - rubik.solve: assembly beats the best C build (1.21x)
+--- footprint    PASS    5.0/5
+--- hygiene      PASS    5.0/5
+--- 1 of 1 programs pass; the other items count 100%
+--- TOTAL 55.0/55

@@ -1,0 +1,2 @@
+src/rubik/rubik.c:27:17:pattern_distance	0	static
+src/rubik/rubik.c:117:5:rubik_solve	272	static

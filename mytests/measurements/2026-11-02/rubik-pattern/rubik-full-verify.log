@@ -1,0 +1,20 @@
+All transition entries match the independent cubie model.
+BFS: 3674160 states, diameter 11, 2644 states at distance 11.
+Both heuristics are admissible over every legal state.
+Verified 250000 states in 1.82 CPU seconds.
+Verified 500000 states in 3.62 CPU seconds.
+Verified 750000 states in 5.41 CPU seconds.
+Verified 1000000 states in 7.22 CPU seconds.
+Verified 1250000 states in 9.02 CPU seconds.
+Verified 1500000 states in 10.81 CPU seconds.
+Verified 1750000 states in 12.59 CPU seconds.
+Verified 2000000 states in 14.39 CPU seconds.
+Verified 2250000 states in 16.21 CPU seconds.
+Verified 2500000 states in 18.01 CPU seconds.
+Verified 2750000 states in 19.79 CPU seconds.
+Verified 3000000 states in 21.63 CPU seconds.
+Verified 3250000 states in 23.43 CPU seconds.
+Verified 3500000 states in 25.23 CPU seconds.
+PASS: exact shortest length and cubie replay for all 3674160 states.
+Largest conservative assembly bound: 3610490, budget 7500000.
+Total search verification CPU seconds: 26.49

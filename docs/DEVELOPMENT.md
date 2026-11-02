@@ -2,12 +2,13 @@
 
 ## Status on 2026-11-02
 
-The BFloat16, binary GCD, and fixed-point C and hand-written RV32I
+The Rubik, BFloat16, binary GCD, and fixed-point C and hand-written RV32I
 implementations pass all four target builds (`-O1`, `-O2`, `-O3`, `-Os`).
 The C implementations pass the supplied host tests under AddressSanitizer
 and UndefinedBehaviorSanitizer. A fresh instructor checkout also grades
-these three programs as passing. The complete score is currently **75/100**:
-Rubik remains the original dummy, pending a search-design decision.
+all four programs as passing. The complete automated score is **100/100**.
+The English report, mock interview, and final submission remain separate
+requirements; the automated score does not complete them.
 
 The instructor harness, contracts, tests, budgets, and workflows have not
 been changed. Local setup uses Ubuntu 26.04 under WSL2, xPack RISC-V GCC
@@ -42,6 +43,7 @@ ratio can differ slightly from dividing the rounded columns below.
 | op2 | 4.0 | 4.0 | 5.9 | 4.0 | 4.0 | 1.00 |
 | op3 | 7.0 | 7.0 | 8.9 | 7.0 | 7.0 | 1.00 |
 | q_mul | 329.9 | 318.9 | 320.8 | 322.4 | 225.2 | 1.42 |
+| rubik_solve | 8066.7 | 6655.8 | 6356.5 | 16113.2 | 5771.2 | 1.10 |
 
 `op2` already needs only a subtraction and return; `op3` needs four data
 operations and return. The assembly matches those minimal compiler
@@ -53,10 +55,12 @@ the harness's baseline convention, not extra operations in the functions.
 | bf16 | 644 | 688 | 0 / 0 / 0 for each implementation |
 | gcd | 132 | 120 | 0 / 0 / 0 for each implementation |
 | fixed | 160 | 352 | 0 / 0 / 0 for each implementation |
+| rubik | 1104 | 1276 | See the allocated-section totals below |
 
-These sizes exclude the test harness and runtime. All assembly routines
-are leaf functions and use caller-saved registers only, with no stack
-allocation or external helper calls.
+These sizes exclude the test harness and runtime. The numeric assembly
+routines use only caller-saved registers and no stack. Rubik saves all
+used callee-saved registers and has a 352-byte stack frame. None of the
+assembly implementations calls an external helper.
 
 ## Binary GCD
 
@@ -191,7 +195,7 @@ multiply operand pairs. Every optimization level passes its own check.
 | op3 | 9 | 9 | 40 |
 | q_mul | 533 | 426 | 1200 |
 
-## Rubik decision still pending
+## Rubik: retaining IDA*
 
 Homework 1's nonrecursive IDA* uses the maximum of permutation and
 orientation distances. Its Ripes distance-11 sweep passed all 2,644
@@ -199,11 +203,102 @@ cases, with a maximum of 15,104,505 instructions and 86 cases above the
 new 7,500,000 limit. Its code and static data total about 42 KB.
 These historical Ripes counts are not new rv32emu measurements.
 
-The current decision is whether to retain IDA* and strengthen its
-heuristic tables, or keep the state model and validation tools while
-changing the search to meet a reverse table within five moves, with a
-distance-11 classification table as suggested by the assignment.
-No Rubik implementation has been changed before this decision.
+The user chose to retain IDA* and try a stronger heuristic first. The
+direct callable port passes the public tests, but measuring the known
+hard cases exposes 15,099,218 instructions at `54721631111111`. Passing
+the published vectors alone therefore does not establish the budget.
+
+The retained search uses a maximum of two admissible distances:
+
+    h(p, o) = max(d_permutation(p), d_pattern(o, positions of corners 2,3,5))
+
+The full state space is 7! * 3^6 = 3,674,160. Projecting the permutation
+onto three labeled corner positions leaves 7 * 6 * 5 = 210 arrangements.
+Together with all 729 orientations, the pattern graph has 153,090 states.
+A face move has a well-defined projection in each graph. Projecting a
+full solution supplies an abstract solution of the same length, so each
+abstract distance is a lower bound; their maximum remains a lower bound.
+Increasing the depth bound from h and testing all moves within each bound
+therefore retains the shortest-length guarantee. Adjacent turns of one
+face combine into a single move or cancel, so skipping such pairs cannot
+remove a shortest solution.
+
+The selected three-corner pattern was promising in Homework 1's subset
+scan. Its maximum distance is nine, so four bits per entry suffice.
+The generator BFS checks every abstract state and verifies all packed
+nibbles against their unpacked values. A 5040-byte map derives the
+three-corner coordinate from the already available permutation rank;
+the search does not carry a third transition coordinate. Precomputed
+orientation row offsets replace multiplication by 105 in each lookup.
+
+| Constant table | Bytes |
+|---|---:|
+| Three permutation quarter-turn rows | 30240 |
+| Three orientation quarter-turn rows | 4374 |
+| Permutation distances | 5040 |
+| Permutation to three-corner coordinate | 5040 |
+| Orientation row offsets | 2916 |
+| Packed pattern distances | 76545 |
+| Alignment padding | 2 |
+| Total tables | 124157 |
+
+The C and assembly own separate copies, as the contract requires. Code,
+move names, ranking weights, and alignment bring the assembly total to
+125,411 bytes, below 131,072. C totals are 125,836 (`-O1`), 125,664
+(`-O2`), 127,032 (`-O3`), and 125,548 (`-Os`). The worst C footprint also
+fits. All three sections `.data`, `.bss`, and the implementation's stack
+reservation are zero: stack use is dynamic under the shared 4 KiB limit.
+GCC's stack-usage reports give at most 272 bytes for the C entry and zero
+for its out-of-line pattern helper; assembly reserves 352 bytes, including
+the eleven explicit search frames.
+
+| Measurement | Basic IDA* | Three-corner pattern IDA* |
+|---|---:|---:|
+| Assembly instructions at old hardest state | 15099218 | 1670656 |
+| Assembly mean over the six harness inputs | 73678.3 | 5771.2 |
+| Fastest C mean over the six harness inputs | 89384.2 | 6356.5 |
+| Assembly code plus read-only data | 41531 | 125411 |
+
+The broader checks establish more than the short benchmark:
+
+1. An independent cubie model checks every generated quarter-turn entry.
+2. Host-only full BFS establishes the exact distance of all 3,674,160
+   states. Both heuristics are admissible on every one of them.
+3. The actual C solver returns the exact distance and a path that solves
+   the independent cubie model for every legal state. This run took 26.49
+   host CPU seconds; that time is not a guest instruction count.
+4. All 2,644 distance-11 states run on rv32emu for C O2 and assembly.
+   Their 5,288 printed paths pass separate Python replay. Maximum calls
+   are 3,854,613 instructions for C and 3,243,708 for assembly, both at
+   `47265312313211`. Mean calls are 671,141.05 and 568,214.09.
+5. The host scan selects the 64 greatest conservative-cost states over
+   the entire legal domain, not just distance 11. Every selected state
+   runs on the target at all four optimization levels. The maximum C
+   call is 9,933,547 at `-Os`, below 50 million; assembly's maximum remains
+   3,243,708. Every printed path is independently replayed.
+
+The host cost scan counts rounds R, candidates C, permutation passes P,
+and accepted children A. For this assembly, a candidate costs at most 11
+instructions before the permutation branch and a permutation pass adds
+14 for the packed lookup and comparison. An accepted child costs at most
+25 for recording/descent plus 62 for its node's face setup, exhausted
+turn checks, and backtracking. Charging 90 per accepted child and 100
+per round therefore overestimates those blocks. A further 2048 covers
+the bounded parse/rank/format and register-save work. The conservative
+sum is
+
+    11*C + 14*P + 90*A + 100*R + 2048.
+
+Its largest value over the full host scan is 3,610,490, safely below the
+7.5-million instruction budget. This is a structural bound computed
+from search events, not a claim to have emulated every legal state.
+The actual target maximum above was measured over distance-11 cases
+and the selected worst cases.
+
+`mytests/generate_rubik_tables.py` reproduces both committed constant
+files exactly. The fixed Makefile does not track assembler `.include`
+dependencies, so regeneration touches `rubik.S` to invalidate its object.
+No Makefile or instructor harness change is needed.
 
 ## Reproduction and evidence
 

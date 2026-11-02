@@ -1,0 +1,7 @@
+@@probe state=54721631111111 impl=c length=11 instructions=1975196 moves=B2 R' B R' D' B R2 B R B D'
+@@probe state=54721631111111 impl=asm length=11 instructions=1670656 moves=B2 R' B R' D' B R2 B R B D'
+@@probe state=14325671111111 impl=c length=11 instructions=1975139 moves=B2 R' B R D B2 D R' B' R D'
+@@probe state=14325671111111 impl=asm length=11 instructions=1668429 moves=B2 R' B R D B2 D R' B' R D'
+@@probe state=41752632313211 impl=c length=11 instructions=1949580 moves=B2 R B' R D R2 B' R B D2 B'
+@@probe state=41752632313211 impl=asm length=11 instructions=1649260 moves=B2 R B' R D R2 B' R B D2 B'
+@@probe failures=0
